@@ -1,11 +1,21 @@
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
+import auth from "../firebase.init";
 const Navbar = () => {
+  const [LoginUser] = useAuthState(auth);
+  const [signOut] = useSignOut(auth);
+  const navigate = useNavigate();
+  const logOut = () => {
+    signOut();
+    navigate("/");
+  };
   return (
     <div className="container mx-auto">
       <div className="navbar ">
         <div className="flex-1">
-          <a className="normal-case text-xl">Doctors Portal</a>
+          <Link to="/" className="normal-case text-xl">
+            Doctors Portal
+          </Link>
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1">
@@ -25,7 +35,13 @@ const Navbar = () => {
               <Link to="contact">Contact Us </Link>
             </li>
             <li>
-              <Link to="login">Login</Link>
+              {LoginUser ? (
+                <Link onClick={logOut} to="/">
+                  Log Out
+                </Link>
+              ) : (
+                <Link to="login">Login</Link>
+              )}
             </li>
           </ul>
         </div>

@@ -4,13 +4,12 @@ const SingleService = ({ service, setTreatment }) => {
   const { name, slots } = service;
   const onBooking = () => {
     setTreatment(service);
-    document.getElementById("my_modal_3").showModal();
   };
   return (
     <div>
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body items-center text-center">
-          <h2 className="card-title">{name}</h2>
+          <h2 className="card-title text-primary">{name}</h2>
           <p>
             {slots.length < 1 ? (
               <span className="text-red-500">Try Another Date</span>
@@ -20,13 +19,14 @@ const SingleService = ({ service, setTreatment }) => {
           </p>
           <p>{slots[0]}</p>
           <div className="card-actions">
-            <button
+            <label
+              htmlFor="my_modal_6"
               onClick={onBooking}
               disabled={slots.length === 0}
               className="btn btn-primary text-white "
             >
               Book Appointment
-            </button>
+            </label>
           </div>
         </div>
       </div>

@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import SingleService from "./SingleService";
-import Modal from "./Modal";
+import BookingModal from "./BookingModal";
 const AvailableSchedule = ({ format, date }) => {
   const [services, setServices] = useState([]);
   const [treatment, setTreatment] = useState(null);
 
   useEffect(() => {
-    fetch(" http://localhost:3000/service")
+    fetch("http://localhost:3000/services")
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, []);
@@ -28,7 +28,11 @@ const AvailableSchedule = ({ format, date }) => {
         ))}
       </div>
       {treatment && (
-        <Modal treatment={treatment} date={date} setTreatment={setTreatment} />
+        <BookingModal
+          treatment={treatment}
+          date={date}
+          setTreatment={setTreatment}
+        />
       )}
     </div>
   );
