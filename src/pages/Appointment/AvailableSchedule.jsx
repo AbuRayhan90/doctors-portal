@@ -5,11 +5,13 @@ import BookingModal from "./BookingModal";
 const AvailableSchedule = ({ format, date }) => {
   const [services, setServices] = useState([]);
   const [treatment, setTreatment] = useState(null);
+  const formattedDate = format(date, "PP");
 
   useEffect(() => {
-    fetch("http://localhost:3000/services")
+    fetch(`http://localhost:3000/available?date=${formattedDate}`)
       .then((res) => res.json())
       .then((data) => setServices(data));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
